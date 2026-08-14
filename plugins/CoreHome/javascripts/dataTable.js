@@ -2057,7 +2057,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         // Everything the menu renders from. The title and its help are pushed separately, by
         // replaceReportTitleAndHelp(), because a related report changes those and not these.
         var props = [
-            'footerIcons_', 'viewDataTable_', 'clientSideParameters_', 'isDataTableEmpty_',
+            'showFooter_', 'showFooterIcons_', 'footerIcons_', 'viewDataTable_', 'clientSideParameters_', 'isDataTableEmpty_',
             'showFlattenTable_', 'reportSupportsFlatten_', 'reportSupportsPercentageValues_',
             'exportSupportsFlatten_', 'hasMultipleDimensions_', 'showTotalsRow_',
             'showExcludeLowPopulation_', 'showPivotBySubtable_', 'dataTableActions_',
