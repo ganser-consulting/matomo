@@ -34,8 +34,10 @@ describe("ReferrersPages", function () {
   it("should display the another row when selected", async function () {
     await page.click('.metrics-picker__toggle');
 
-    await page.waitForSelector('.metrics-picker__options .metrics-picker__row input');
-    const element = await page.jQuery('.metrics-picker__options .metrics-picker__row input:not(:checked):first');
+    // click the label, not the input: the options sit in the DOM whether the dropdown is open or
+    // not, and the input itself is the hidden half of a Materialize checkbox
+    await page.waitForSelector('.metrics-picker__options .metrics-picker__row');
+    const element = await page.jQuery('.metrics-picker__options .metrics-picker__row:has(input:not(:checked)):first');
     await element.click();
     await page.waitForNetworkIdle();
     await page.waitForTimeout(250);

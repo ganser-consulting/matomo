@@ -119,8 +119,9 @@ describe("PagePerformance", function () {
     });
 
     it("should load new table with performance metrics visualization", async function () {
-        // hover visualization selection
-        const icon = await page.jQuery('.dropdown-content .icon-page-performance:last');
+        // the menu opened by the test above lists the visualisations; `.dropdown-content` was the
+        // footer bar's own wrapper and is not rendered any more
+        const icon = await page.jQuery('.reportHeader__actionsMenu .tableIcon[data-footer-icon-id=tablePerformanceColumns]:last');
         await icon.click();
         await page.mouse.move(-10, -10);
 
