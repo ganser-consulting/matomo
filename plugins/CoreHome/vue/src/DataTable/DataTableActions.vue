@@ -19,45 +19,73 @@
         <li v-if="showFlattenTable" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTableFlatten"
-            v-html="$sanitize(flattenItemText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(flattenItemText)"
+            />
+          </div>
         </li>
         <li v-if="showDimensionsConfigItem" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTableShowDimensions"
-            v-html="$sanitize(showDimensionsText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(showDimensionsText)"
+            />
+          </div>
         </li>
         <li v-if="showFlatConfigItem" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTableIncludeAggregateRows"
-            v-html="$sanitize(includeAggregateRowsText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(includeAggregateRowsText)"
+            />
+          </div>
         </li>
         <li v-if="showTotalsConfigItem" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTableShowTotalsRow"
-            v-html="$sanitize(keepTotalsRowText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(keepTotalsRowText)"
+            />
+          </div>
         </li>
         <li v-if="showPercentageValuesConfigItem" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTableShowPercentageValues"
             :aria-label="percentageValuesLabel"
-            v-html="$sanitize(percentageValuesText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(percentageValuesText)"
+            />
+          </div>
         </li>
         <li v-if="showExcludeLowPopulation" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTableExcludeLowPopulation"
-            v-html="$sanitize(excludeLowPopText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(excludeLowPopText)"
+            />
+          </div>
         </li>
         <li v-if="showPivotBySubtable" class="mtm-dropdownPanel__menuItem">
           <div
             class="mtm-dropdownPanel__menuLink configItem dataTablePivotBySubtable"
-            v-html="$sanitize(pivotByText)"
-          />
+          >
+            <span
+              class="mtm-dropdownPanel__menuLabel mtm-dropdownPanel__menuLabel--stacked"
+              v-html="$sanitize(pivotByText)"
+            />
+          </div>
         </li>
       </ul>
 
@@ -237,7 +265,7 @@ const { $ } = window;
 
 function getSingleStateIconText(text: string, addDefault?: boolean, replacement?: string) {
   if (/(%(.\$)?s+)/g.test(translate(text))) {
-    const values = ['<br /><span class="action">'];
+    const values = ['<span class="mtm-dropdownPanel__menuAction action">'];
     if (replacement) {
       values.push(replacement);
     }
