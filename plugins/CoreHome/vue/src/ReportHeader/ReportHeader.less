@@ -112,8 +112,9 @@
     cursor: pointer;
     appearance: none;
     // Present but quiet at rest, rather than hidden until hover: the trigger is the only way to
-    // reach the report's actions, so it stays discoverable and darkens on approach.
-    color: @theme-color-border-alternative;
+    // reach the report's actions, so it stays discoverable and darkens on approach. Same pair the
+    // panel it opens uses for its own entries, rather than a border token spent on an icon.
+    color: @theme-color-text-lighter;
 
     &:focus {
       outline: none;
