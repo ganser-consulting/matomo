@@ -50,6 +50,34 @@ describe("Dashboard", function () {
     expect(await pageWrap.screenshot()).to.matchImage('dashboard3');
   });
 
+  // The widget chrome renders the report header itself (_widgetFactoryTemplate.twig), so the report
+  // inside must not render a second one - neither on load nor after the chrome replaces its content.
+  // Refreshing is the sharper case: it reloads the widget the same way the first load did, so a
+  // report that claimed a header there would stack one under the chrome's. This is the failure that
+  // got the first attempt at mounting a header for titleless reports reverted.
+  it("should give no widget a second actions menu, on load or after a refresh", async function () {
+    const triggersPerWidget = () => page.evaluate(
+      () => Array.from(document.querySelectorAll('.widget'))
+        .map((widget) => widget.querySelectorAll('.reportHeader__actionsTrigger').length)
+    );
+
+    const onLoad = await triggersPerWidget();
+    // not every widget has actions (an RSS or sparklines widget has no footer icons), so the check
+    // is that none has two - paired with a count of the ones that do have a menu, so a dashboard
+    // that stopped rendering them entirely cannot pass vacuously
+    expect(Math.max(...onLoad)).to.equal(1);
+    expect(onLoad.filter((count) => count === 1).length).to.be.above(0);
+
+    await page.evaluate(() => {
+      document.querySelector('.widget .widgetControls__action--refresh').click();
+    });
+    await page.waitForNetworkIdle();
+
+    const afterRefresh = await triggersPerWidget();
+    expect(Math.max(...afterRefresh)).to.equal(1);
+    expect(afterRefresh.filter((count) => count === 1).length).to.be.above(0);
+  });
+
   it("should load dashboard4 correctly", async function () {
     await page.goto("?" + urlBase + "#?" + generalParams + "&category=Dashboard_Dashboard&subcategory=4");
     await page.waitForNetworkIdle();

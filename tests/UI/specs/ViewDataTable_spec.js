@@ -96,6 +96,15 @@ describe("ViewDataTableTest", function () { // TODO: should remove Test suffix f
         expect(await page.screenshot({ fullPage: true })).to.matchImage('9_normal_table');
     });
 
+    // The header is mounted outside `.dataTable` so a reload does not replace it. Every reload
+    // above therefore has to come back without a header of its own, or they accumulate.
+    it("should keep a single actions menu after the reloads above", async function () {
+        const triggers = await page.evaluate(
+            () => document.querySelectorAll('.reportHeader__actionsTrigger').length
+        );
+        expect(triggers).to.equal(1);
+    });
+
     it("should show the limit selector when the limit selector is clicked", async function () {
         await page.click('.limitSelection input');
         await page.mouse.move(-10, -10);
@@ -208,6 +217,7 @@ describe("ViewDataTableTest", function () { // TODO: should remove Test suffix f
     });
 
     it("should display the export popover when clicking the export icon", async function () {
+        await page.click('.reportHeader__actionsTrigger');
         await page.click('.activateExportSelection');
         await page.waitForSelector('#reportExport .btn');
 
@@ -218,6 +228,7 @@ describe("ViewDataTableTest", function () { // TODO: should remove Test suffix f
     it("should display the ENTER_YOUR_TOKEN_AUTH_HERE text in the export url", async function () {
         await page.goto(url.replace(/filter_limit=5/, 'filter_limit=10') + '&flat=1');
         await page.waitForNetworkIdle();
+        await page.click('.reportHeader__actionsTrigger');
         await page.click('.activateExportSelection');
         await page.waitForSelector('.toggle-export-url');
         await page.click('.toggle-export-url');

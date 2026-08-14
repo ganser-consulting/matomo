@@ -933,8 +933,17 @@ describe("UIIntegrationTest", function () { // TODO: Rename to Piwik?
 
             await page.mouse.move(-10, -10);
 
-            pageWrap = await page.$('.ui-dialog > .ui-dialog-content > div.dataTableVizVisitorLog');
+            // the report actions now live in a header the report renders above `.dataTable`, so the
+            // table is no longer a direct child of the dialog's content
+            pageWrap = await page.$('.ui-dialog .ui-dialog-content div.dataTableVizVisitorLog');
             expect(await pageWrap.screenshot()).to.matchImage('segmented_visitorlog');
+        });
+
+        it('should offer the report actions in the segmented visitor log', async function () {
+            const triggers = await page.evaluate(
+                () => document.querySelectorAll('.ui-dialog .reportHeader__actionsTrigger').length
+            );
+            expect(triggers).to.equal(1);
         });
 
         it('should not apply current segmented when opening visitor log', async function () {

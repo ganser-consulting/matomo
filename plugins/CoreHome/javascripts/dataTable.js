@@ -319,6 +319,12 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             }
         }
 
+        // The response replaces `.dataTable` wholesale, and the report header sits outside it so it
+        // survives that - a header in the response would therefore be a second one, not a
+        // replacement. Set on this request only, not on `self.param`: that holds the report's own
+        // state, which every later request is rebuilt from and other code reads back.
+        params.disable_report_header = 1;
+
         ajaxRequest.addParams(params, 'get');
         if (extraParams) {
             ajaxRequest.addParams(extraParams, 'post');
