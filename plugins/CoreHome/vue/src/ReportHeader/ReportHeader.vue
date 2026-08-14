@@ -44,73 +44,79 @@
 
       <!-- Widget controls: hidden until the widget is hovered/focused. Each action emits an
            intent that onControl() bridges to the jQuery widget. -->
-      <div class="reportHeader__widgetControls">
-        <WidgetControls
-          v-if="hasControls"
-          :can-minimise="controls.minimise"
-          :can-maximise="controls.maximise"
-          :can-refresh="controls.refresh"
-          :can-close="controls.close"
-          @minimise="onControl('minimise')"
-          @maximise="onControl('maximise')"
-          @refresh="onControl('refresh')"
-          @close="onControl('close')"
-        />
-      </div>
+      <div class="reportHeader__controls">
+        <div class="reportHeader__widgetControls">
+          <WidgetControls
+            v-if="hasControls"
+            :can-minimise="controls.minimise"
+            :can-maximise="controls.maximise"
+            :can-refresh="controls.refresh"
+            :can-close="controls.close"
+            @minimise="onControl('minimise')"
+            @maximise="onControl('maximise')"
+            @refresh="onControl('refresh')"
+            @close="onControl('close')"
+          />
+        </div>
 
-      <!-- The report's 3-dots menu. The panel is one menu built from the report's own actions;
+        <!-- The report's 3-dots menu. The panel is one menu built from the report's own actions;
            when the report has none the whole toolbar stays `:empty` and claims none of the
            header's gap. -->
-      <div class="reportHeader__toolbar">
-        <div
-          v-if="showActions"
-          ref="actions"
-          class="reportHeader__actions"
-          v-expand-on-click="{ expander: 'actionsTrigger' }"
-        >
-          <button
-            ref="actionsTrigger"
-            type="button"
-            class="reportHeader__actionsTrigger"
-            :title="translate('CoreHome_ReportActions')"
-            :aria-label="translate('CoreHome_ReportActions')"
+        <div class="reportHeader__toolbar">
+          <div
+            v-if="showActions"
+            ref="actions"
+            class="reportHeader__actions"
+            v-expand-on-click="{ expander: 'actionsTrigger' }"
           >
-            <span class="icon-more-verti" aria-hidden="true" />
-          </button>
+            <button
+              ref="actionsTrigger"
+              type="button"
+              class="reportHeader__actionsTrigger"
+              :title="translate('CoreHome_ReportActions')"
+              :aria-label="translate('CoreHome_ReportActions')"
+            >
+              <span class="icon-more-verti" aria-hidden="true" />
+            </button>
 
-          <!-- ExpandOnClick only closes on a click *outside* the element, so picking an action
+            <!-- ExpandOnClick only closes on a click *outside* the element, so picking an action
                would otherwise leave the menu hanging open over the reloading report. The
                dropdown it replaces closed on item click, so match that. -->
-          <div class="reportHeader__actionsMenu" @click="closeActions">
-            <div class="mtm-dropdownPanel mtm-dropdownPanel--wide">
-              <DataTableActions
-                placement="header"
-                :show-footer="showFooter"
-                :show-footer-icons="showFooterIcons"
-                :footer-icons="footerIcons"
-                :report-title="titleText"
-                :request-params="requestParams"
-                :api-method-to-request-data-table="apiMethodToRequestDataTable"
-                :max-filter-limit="maxFilterLimit"
-                :show-export="showExport"
-                :show-export-as-image-icon="showExportAsImageIcon"
-                :report-id="reportId"
-                :data-table-actions="dataTableActions"
-                :show-flatten-table="showFlattenTable"
-                :report-supports-flatten="reportSupportsFlatten"
-                :report-supports-percentage-values="reportSupportsPercentageValues"
-                :export-supports-flatten="exportSupportsFlatten"
-                :client-side-parameters="clientSideParameters"
-                :has-multiple-dimensions="hasMultipleDimensions"
-                :is-data-table-empty="isDataTableEmpty"
-                :show-totals-row="showTotalsRow"
-                :show-exclude-low-population="showExcludeLowPopulation"
-                :show-pivot-by-subtable="showPivotBySubtable"
-                :translations="actionTranslations"
-                :view-data-table="viewDataTable"
-                :pivot-dimension-name="pivotDimensionName"
-                :selectable-periods="selectablePeriods"
-              />
+            <!-- The click handler only dismisses the menu after an entry was chosen. Every entry is
+               a focusable control of its own and Escape closes the menu through ExpandOnClick, so
+               no keyboard path depends on it. -->
+            <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events -->
+            <div class="reportHeader__actionsMenu" @click="closeActions">
+              <div class="mtm-dropdownPanel mtm-dropdownPanel--wide">
+                <DataTableActions
+                  placement="header"
+                  :show-footer="showFooter"
+                  :show-footer-icons="showFooterIcons"
+                  :footer-icons="footerIcons"
+                  :report-title="titleText"
+                  :request-params="requestParams"
+                  :api-method-to-request-data-table="apiMethodToRequestDataTable"
+                  :max-filter-limit="maxFilterLimit"
+                  :show-export="showExport"
+                  :show-export-as-image-icon="showExportAsImageIcon"
+                  :report-id="reportId"
+                  :data-table-actions="dataTableActions"
+                  :show-flatten-table="showFlattenTable"
+                  :report-supports-flatten="reportSupportsFlatten"
+                  :report-supports-percentage-values="reportSupportsPercentageValues"
+                  :export-supports-flatten="exportSupportsFlatten"
+                  :client-side-parameters="clientSideParameters"
+                  :has-multiple-dimensions="hasMultipleDimensions"
+                  :is-data-table-empty="isDataTableEmpty"
+                  :show-totals-row="showTotalsRow"
+                  :show-exclude-low-population="showExcludeLowPopulation"
+                  :show-pivot-by-subtable="showPivotBySubtable"
+                  :translations="actionTranslations"
+                  :view-data-table="viewDataTable"
+                  :pivot-dimension-name="pivotDimensionName"
+                  :selectable-periods="selectablePeriods"
+                />
+              </div>
             </div>
           </div>
         </div>

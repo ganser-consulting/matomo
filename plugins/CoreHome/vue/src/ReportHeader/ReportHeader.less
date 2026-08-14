@@ -58,6 +58,18 @@
     max-width: 300px;
   }
 
+  // The widget controls and the actions trigger read as one cluster, so the header's gap must
+  // not fall between them.
+  .reportHeader__controls {
+    flex: none;
+    display: flex;
+    align-items: safe center;
+
+    &:empty {
+      display: none;
+    }
+  }
+
   .reportHeader__widgetControls {
     flex: none;
     display: flex;
