@@ -100,8 +100,10 @@
     cursor: pointer;
     appearance: none;
     // Present but quiet at rest, rather than hidden until hover: the trigger is the only way to
-    // reach the report's actions, so it stays discoverable and darkens on approach.
-    color: @theme-color-border-alternative;
+    // reach the report's actions, so it stays discoverable and darkens on approach. The design
+    // uses the border grey, but that was drawn for a stroked SVG; the icon font renders far
+    // lighter at the same value, so this takes the muted text colour instead.
+    color: @theme-color-text-lighter;
 
     &:focus {
       outline: none;
