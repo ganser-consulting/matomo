@@ -77,10 +77,6 @@
     flex: none;
     display: flex;
     align-items: safe center;
-    // Matches __widgetControls: opacity, not display, so the trigger stays keyboard-focusable
-    // when a host opts into hover-reveal.
-    opacity: 1;
-    transition: opacity 0.15s ease;
 
     &:empty {
       display: none;
@@ -99,15 +95,13 @@
     background: transparent;
     border: 0;
     border-radius: 8px;
-    color: @theme-color-text-lighter;
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
     appearance: none;
-
-    &:hover {
-      color: @theme-color-text;
-    }
+    // Present but quiet at rest, rather than hidden until hover: the trigger is the only way to
+    // reach the report's actions, so it stays discoverable and darkens on approach.
+    color: @theme-color-border-alternative;
 
     &:focus {
       outline: none;
@@ -133,6 +127,13 @@
 
   .reportHeader__actions.expanded .reportHeader__actionsMenu {
     display: block;
+  }
+
+  .reportHeader__actionsTrigger:hover,
+  .reportHeader__actionsTrigger:focus,
+  .reportHeader__actions.expanded .reportHeader__actionsTrigger,
+  .widget:hover & .reportHeader__actionsTrigger {
+    color: @theme-color-text;
   }
 }
 
@@ -161,17 +162,11 @@
 // hook (e.g. the dashboard widget), hide the controls until the host is hovered or a control
 // is focused. Absent the hook the controls stay visible (base rule above), which is how a
 // maximised widget keeps them on. The hook is reference-only — see CSS rules, rule 31.
-// The actions trigger follows the same rule: the footer bar it replaces was hover-revealed on
-// dashboards too (_dataTable.less, `.dataTableControls .dataTableAction`), so this keeps a
-// dashboard looking as quiet at rest as it does today.
-.__reportHeader-onHover .reportHeader__widgetControls,
-.__reportHeader-onHover .reportHeader__toolbar {
+.__reportHeader-onHover .reportHeader__widgetControls {
   opacity: 0;
 }
 
 .__reportHeader-onHover:hover .reportHeader__widgetControls,
-.__reportHeader-onHover:focus-within .reportHeader__widgetControls,
-.__reportHeader-onHover:hover .reportHeader__toolbar,
-.__reportHeader-onHover:focus-within .reportHeader__toolbar {
+.__reportHeader-onHover:focus-within .reportHeader__widgetControls {
   opacity: 1;
 }
