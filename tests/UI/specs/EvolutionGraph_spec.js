@@ -257,6 +257,10 @@ describe("EvolutionGraph", function () {
             $('.delete-annotation').click();
         });
         await page.waitForNetworkIdle();
+        // this asserts the same image as the test above, so it has to leave the pointer where that
+        // one does: the delete click leaves it inside the widget, and a hovered widget darkens the
+        // header's actions trigger
+        await page.mouse.move(-10, -10);
 
         expect(await page.screenshot({ fullPage: true })).to.matchImage('annotations_none');
     });
