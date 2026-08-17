@@ -141,7 +141,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import DataTableActions from '../DataTable/DataTableActions.vue';
+import DataTableActions, {
+  DataTableAction,
+  FooterIconGroup,
+} from '../DataTable/DataTableActions.vue';
 import EnrichedHeadline from '../EnrichedHeadline/EnrichedHeadline.vue';
 import ExpandOnClick from '../ExpandOnClick/ExpandOnClick';
 import SearchInput from '../SearchInput/SearchInput.vue';
@@ -258,7 +261,7 @@ export default defineComponent({
     showFooter: Boolean,
     showFooterIcons: Boolean,
     footerIcons: {
-      type: Array,
+      type: Array as PropType<FooterIconGroup[]>,
       default: () => [],
     },
     requestParams: {
@@ -280,7 +283,7 @@ export default defineComponent({
       default: '',
     },
     dataTableActions: {
-      type: Array,
+      type: Array as PropType<DataTableAction[]>,
       default: () => [],
     },
     showFlattenTable: Boolean,
@@ -311,7 +314,7 @@ export default defineComponent({
       default: null,
     },
     selectablePeriods: {
-      type: Array,
+      type: Array as PropType<string[]>,
       default: () => [],
     },
   },

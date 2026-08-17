@@ -245,18 +245,18 @@ import { translate } from '../translate';
 import { isBooleanLikeSet, resolveExportSupportsFlat } from './DataTableActions.utils';
 import findReportRoot from './reportScope';
 
-interface FooterIcon {
+export interface FooterIcon {
   id: string;
   icon?: string;
   title?: string;
 }
 
-interface FooterIconGroup {
+export interface FooterIconGroup {
   buttons: FooterIcon[];
   class?: string;
 }
 
-interface DataTableAction {
+export interface DataTableAction {
   id: string;
   icon?: string;
   title?: string;
@@ -347,7 +347,8 @@ export default defineComponent({
       type: Object,
       required: true,
     },
-    pivotDimensionName: String,
+    // both templates that mount this send null when the report has no pivot dimension
+    pivotDimensionName: String as PropType<string|null>,
     placement: {
       type: String,
       default: 'footer',
@@ -482,7 +483,8 @@ export default defineComponent({
         return getSingleStateIconText('CoreHome_UndoPivotBySubtable', true);
       }
 
-      return getSingleStateIconText('CoreHome_PivotBySubtable', false, this.pivotDimensionName);
+      return getSingleStateIconText('CoreHome_PivotBySubtable', false, this.pivotDimensionName
+        || undefined);
     },
     excludeLowPopText() {
       const params = this.clientSideParameters as Record<string, string|number|boolean>;
