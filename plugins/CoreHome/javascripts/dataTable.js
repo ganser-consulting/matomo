@@ -430,8 +430,11 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         self.handleExportBox(domElem);
         self.applyCosmetics(domElem);
         self.handleSubDataTable(domElem);
-        self.syncReportHeaderActions(domElem);
+        // after handleConfigurationBox: that is what drops the flatten action from a report with no
+        // subtables, and it only reaches the footer entry, so syncing before it would copy the
+        // action into the header just as the footer gave it up
         self.handleConfigurationBox(domElem);
+        self.syncReportHeaderActions(domElem);
         self.handleSearchBox(domElem);
         self.handleColumnDocumentation(domElem);
         self.handleRowActions(domElem);

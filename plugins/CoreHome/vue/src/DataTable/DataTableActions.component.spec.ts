@@ -15,7 +15,6 @@ function translateStub(key: string, ...args: string[]) {
     CoreHome_ShowPercentageValues: 'Show percentages',
     CoreHome_ShowAbsoluteValues: 'Show absolute values',
     CoreHome_Default: 'default',
-    CoreHome_ReportConfigure: 'Configure this report',
   };
 
   const message = messages[key] || key;

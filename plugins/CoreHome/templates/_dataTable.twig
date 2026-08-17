@@ -18,7 +18,7 @@
    refactored with the goal of moving the table actions to the top of the report for all reports, at
    which point they can be renamed to show_header and show_header_icons. #}
 {% set widgetizedIframe = isWidgetizedIframe|default(false) %}
-{% set hasReportActions = properties.show_footer and properties.show_footer_icons %}
+{% set hasReportActions = properties.show_footer and properties.show_footer_icons and error is not defined %}
 {% set renderStandaloneHeader = not showCardAsContentBlock and mayRenderReportHeader
     and (showOnlyTitleWithoutCard or widgetizedIframe or (hasReportActions and not isWidget)) %}
 {% set headerContext = widgetizedIframe ? 'widgetized' : 'fullPage' %}
