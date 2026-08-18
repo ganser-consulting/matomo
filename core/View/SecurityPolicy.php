@@ -23,6 +23,7 @@ class SecurityPolicy
     public const RULE_DEFAULT = "'self' 'unsafe-inline' 'unsafe-eval'";
     public const RULE_IMG_DEFAULT = "'self' 'unsafe-inline' 'unsafe-eval' data:";
     public const RULE_EMBEDDED_FRAME = "'self' 'unsafe-inline' 'unsafe-eval' data: https: http:";
+    public const RULE_NONE = "'none'";
 
     /**
      * The policies that will generate the CSP header.
@@ -110,6 +111,28 @@ class SecurityPolicy
         }
 
         return $headerString;
+    }
+
+    /**
+     * Replaces all directives with a policy for responses that are data rather than application UI
+     * (API output, exports, generated reports): no scripts, plugins, framing, form submissions or
+     * base URI overrides. Inline styles and first-party images stay allowed, as reports need both.
+     *
+     * @api
+     */
+    public function restrictToDataResponse(): void
+    {
+        $this->policies = [
+            'default-src' => self::RULE_NONE,
+            'style-src' => "'unsafe-inline'",
+            'img-src' => "'self' data:",
+            'base-uri' => self::RULE_NONE,
+            'form-action' => self::RULE_NONE,
+            'frame-ancestors' => self::RULE_NONE,
+        ];
+
+        // nothing to roll out gradually here, so always enforce
+        $this->reportOnly = false;
     }
 
     /**
