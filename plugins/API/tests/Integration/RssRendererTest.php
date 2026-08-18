@@ -9,6 +9,7 @@
 
 namespace Piwik\Plugins\API\tests\Integration;
 
+use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\Plugins\API\Renderer\Rss;
 use Piwik\Tests\Framework\Fixture;
@@ -35,6 +36,15 @@ class RssRendererTest extends IntegrationTestCase
         $idSite = Fixture::createWebsite('2014-01-01 00:00:00');
 
         $this->builder = $this->makeBuilder(array('method' => 'MultiSites_getAll', 'idSite' => $idSite));
+
+        Common::$headersSentInTests = [];
+    }
+
+    public function tearDown(): void
+    {
+        Common::$headersSentInTests = [];
+
+        parent::tearDown();
     }
 
     public function testRenderSuccessShouldIncludeMessage()
@@ -49,6 +59,16 @@ class RssRendererTest extends IntegrationTestCase
         $response = $this->builder->renderException("The error message", new \Exception('The other message'));
 
         $this->assertEquals('Error: The error message', $response);
+    }
+
+    public function testRenderExceptionShouldSendAWellFormedPlainTextContentType()
+    {
+        $this->builder->renderException("The error message", new \Exception('The other message'));
+
+        $this->assertSame(
+            'text/plain; charset=utf-8',
+            trim(Common::$headersSentInTests['Content-Type'] ?? '')
+        );
     }
 
     public function testRenderObjectShouldReturAnError()

@@ -52,6 +52,15 @@ abstract class ApiRenderer
         return Common::isPhpCliMode() && SettingsServer::isArchivePhpTriggered();
     }
 
+    /**
+     * The message of an exception is escaped for markup before it reaches a renderer, so serving it
+     * as plain text has to undo that, or the escapes end up in the output.
+     */
+    protected function messageAsPlainText(string $message): string
+    {
+        return html_entity_decode($message, ENT_QUOTES, 'UTF-8');
+    }
+
     abstract public function sendHeader();
 
     public function renderSuccess($message)
