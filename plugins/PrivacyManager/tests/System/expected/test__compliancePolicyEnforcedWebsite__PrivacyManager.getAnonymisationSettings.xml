@@ -52,7 +52,7 @@
 					<requiredValue>2</requiredValue>
 					<effectiveValue>2</effectiveValue>
 					<constraintType>min</constraintType>
-					<scope>instance</scope>
+					<scope>site</scope>
 					<policyTitle>CNIL Website Analytics Compliance</policyTitle>
 				</cnil_v1>
 			</compliancePolicyControlled>
@@ -64,7 +64,7 @@
 					<requiredValue>1</requiredValue>
 					<effectiveValue>1</effectiveValue>
 					<constraintType>exact</constraintType>
-					<scope>instance</scope>
+					<scope>site</scope>
 					<policyTitle>CNIL Website Analytics Compliance</policyTitle>
 				</cnil_v1>
 			</compliancePolicyControlled>
@@ -76,7 +76,7 @@
 					<requiredValue>1</requiredValue>
 					<effectiveValue>1</effectiveValue>
 					<constraintType>exact</constraintType>
-					<scope>instance</scope>
+					<scope>site</scope>
 					<policyTitle>CNIL Website Analytics Compliance</policyTitle>
 				</cnil_v1>
 			</compliancePolicyControlled>
@@ -88,7 +88,7 @@
 					<requiredValue>exclude_path</requiredValue>
 					<effectiveValue>exclude_path</effectiveValue>
 					<constraintType>min</constraintType>
-					<scope>instance</scope>
+					<scope>site</scope>
 					<policyTitle>CNIL Website Analytics Compliance</policyTitle>
 				</cnil_v1>
 			</compliancePolicyControlled>
