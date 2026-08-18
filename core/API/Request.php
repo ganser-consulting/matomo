@@ -407,7 +407,8 @@ class Request
      * controller calls Request::processRequest('API.getMatomoVersion')). To find out if the root request is an API
      * request or not, call {@link isRootRequestApiRequest()}
      *
-     * @param array $request  eg array('module' => 'API', 'method' => 'Test.getMethod')
+     * @param array|null $request  eg array('module' => 'API', 'method' => 'Test.getMethod'), or
+     *                             null to read them from the query string and the request body
      * @return bool
      * @throws Exception
      */
